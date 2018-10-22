@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">clippingkk</string>
+    <string name="title_home">Home</string>
+    <string name="title_square">Square</string>
+    <string name="title_profile">Profile</string>
+    <string name="auth_tip_text">请先拥有 windows app 账户哦~</string>
+</resources>
