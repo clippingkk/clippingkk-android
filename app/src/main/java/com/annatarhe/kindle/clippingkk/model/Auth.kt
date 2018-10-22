@@ -30,6 +30,5 @@ class AuthAPI {
                 val resultData = result.get().obj()
                 Log.i("auth", resultData.toString())
             }
-
     }
 }
