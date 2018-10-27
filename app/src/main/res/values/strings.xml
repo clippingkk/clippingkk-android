@@ -4,4 +4,7 @@
     <string name="title_square">Square</string>
     <string name="title_profile">Profile</string>
     <string name="auth_tip_text">请先拥有 windows app 账户哦~</string>
+    <string name="auth_title_text">Auth</string>
+    <string name="auth_submit_text">Submit</string>
+    <string name="auth_pwd_hint">Password</string>
 </resources>
