@@ -12,18 +12,19 @@
             android:orientation="vertical"
             android:layout_margin="10dp"
     >
-
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:id="@+id/clippingCardContent"
+                android:ellipsize="end"
+                android:textSize="16dp"
         />
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/clippingCardBookname"
+                android:textAlignment="textEnd"
+                android:textSize="12dp"
         />
     </LinearLayout>
-
-
 </android.support.v7.widget.CardView>
