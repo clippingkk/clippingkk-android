@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import com.annatarhe.kindle.clippingkk.R
-import com.annatarhe.kindle.clippingkk.model.ClippingItem
+import com.annatarhe.kindle.clippingkk.model.ClippingAPI
 
-class HomeCardItemAdapter(private val clippings: List<ClippingItem>) :
+class HomeCardItemAdapter(private val clippings: List<ClippingAPI.ClippingItem>) :
     RecyclerView.Adapter<HomeCardItemAdapter.CardViewHolder>() {
 
     class CardViewHolder(containerView: CardView) : RecyclerView.ViewHolder(containerView) {
