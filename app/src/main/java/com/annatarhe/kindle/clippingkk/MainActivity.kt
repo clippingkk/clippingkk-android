@@ -1,12 +1,8 @@
 package com.annatarhe.kindle.clippingkk
 
-import android.app.PendingIntent
-import android.app.TaskStackBuilder
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
 import com.annatarhe.kindle.clippingkk.model.AppConfig
 import com.annatarhe.kindle.clippingkk.ui.AuthPage
@@ -17,19 +13,23 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    val homeTabFragment by lazy { HomeTabFragment() }
+    val squareFragment by lazy { SquareFragment() }
+    val profileFragment by lazy { ProfileFragment() }
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.indexScreenFragment, HomeTabFragment())
+                    .replace(R.id.indexScreenFragment, homeTabFragment)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.indexScreenFragment, SquareFragment())
+                    .replace(R.id.indexScreenFragment, squareFragment)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.indexScreenFragment, ProfileFragment())
+                    .replace(R.id.indexScreenFragment, profileFragment)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateContent() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.indexScreenFragment, HomeTabFragment())
+            .add(R.id.indexScreenFragment, homeTabFragment)
             .commit()
     }
 }

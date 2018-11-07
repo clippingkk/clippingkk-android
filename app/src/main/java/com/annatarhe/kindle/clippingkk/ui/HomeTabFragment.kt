@@ -30,23 +30,30 @@ class HomeTabFragment : Fragment() {
         homeClippings.setHasFixedSize(true)
         homeClippings.layoutManager = viewManager
         homeClippings.adapter = HomeCardItemAdapter(clippings)
+
+        homeSwipeRefresh.setOnRefreshListener {
+            loadMoreData(0)
+        }
         this.initLoad()
     }
 
     private fun initLoad() {
         Timer("initLoad", false).schedule(100) {
-            loadMoreData()
+            loadMoreData(0)
         }
     }
 
-    fun loadMoreData() {
-        ClippingAPI().fetch(0, { results ->
+    fun loadMoreData(offset: Int) {
+        ClippingAPI().fetch(offset, { results ->
             clippings.addAll(results)
             homeClippings.adapter?.notifyDataSetChanged()
+
+            if (homeSwipeRefresh.isRefreshing) {
+                homeSwipeRefresh.isRefreshing = false
+            }
         }, { msg ->
             Log.i("clipping", msg)
             Snackbar.make(this.view!!, msg, Snackbar.LENGTH_LONG).show()
         })
-
     }
 }
