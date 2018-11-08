@@ -1,5 +1,6 @@
 package com.annatarhe.kindle.clippingkk.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -27,13 +28,24 @@ class HomeTabFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val viewManager = LinearLayoutManager(activity)
+        val adapter = HomeCardItemAdapter(clippings)
+        adapter.setOnClickListener(object : HomeCardItemAdapter.OnItemClickListener {
+            override fun onClick(v: View, data: ClippingAPI.ClippingItem) {
+                Log.i("detail", data.toString())
+                val intent = Intent(this@HomeTabFragment.context, DetailPage::class.java)
+                intent.putExtra(DetailPage.DETAIL_KEY, data.id)
+                startActivity(intent)
+            }
+        })
         homeClippings.setHasFixedSize(true)
         homeClippings.layoutManager = viewManager
-        homeClippings.adapter = HomeCardItemAdapter(clippings)
+        homeClippings.adapter = adapter
 
         homeSwipeRefresh.setOnRefreshListener {
             loadMoreData(0)
         }
+
+
         this.initLoad()
     }
 

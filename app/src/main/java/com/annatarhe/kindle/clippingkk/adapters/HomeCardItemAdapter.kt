@@ -1,17 +1,22 @@
 package com.annatarhe.kindle.clippingkk.adapters
 
-import android.content.Intent
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.annatarhe.kindle.clippingkk.R
 import com.annatarhe.kindle.clippingkk.model.ClippingAPI
-import com.annatarhe.kindle.clippingkk.ui.DetailPage
 
 class HomeCardItemAdapter(private val clippings: List<ClippingAPI.ClippingItem>) :
     RecyclerView.Adapter<HomeCardItemAdapter.CardViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onClick(view: View, data: ClippingAPI.ClippingItem)
+    }
+
+    lateinit var listener: OnItemClickListener
 
     class CardViewHolder(containerView: CardView) : RecyclerView.ViewHolder(containerView) {
         val cardContent: TextView
@@ -29,7 +34,7 @@ class HomeCardItemAdapter(private val clippings: List<ClippingAPI.ClippingItem>)
     ): HomeCardItemAdapter.CardViewHolder {
         val containerView = LayoutInflater.from(parent.context)
             .inflate(R.layout.home_clipping_card, parent, false) as CardView
-
+        this.listener = listener
         return CardViewHolder(containerView)
     }
 
@@ -41,10 +46,12 @@ class HomeCardItemAdapter(private val clippings: List<ClippingAPI.ClippingItem>)
         holder.cardContent.text = data.content
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, DetailPage::class.java)
-            intent.putExtra(DetailPage.DETAIL_KEY, data.id)
-            holder.itemView.context.startActivity(intent)
+            listener.onClick(it, data)
         }
+    }
+
+    fun setOnClickListener(listener: OnItemClickListener) {
+        this.listener = listener
     }
 
     // Return the size of your dataset (invoked by the layout manager)
