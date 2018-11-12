@@ -42,4 +42,24 @@ class ClippingAPI {
                 onSuccess(clippings)
             }
     }
+
+    fun fetchDetail(id: Int, onSuccess: (ClippingItem) -> Unit, onFail: (msg: String) -> Unit) {
+        "/clippings/$id".httpGet().responseJson { request, response, result ->
+            if (response.statusCode != 200) {
+                onFail(response.responseMessage)
+                return@responseJson
+            }
+            val resultObj = result.get().obj()
+            if (resultObj.getInt("status") != 200) {
+                onFail(resultObj.getString("msg"))
+                return@responseJson
+            }
+
+            val item = Gson().fromJson<ClippingItem>(resultObj.getJSONObject("data").toString())
+
+            onSuccess(item)
+        }
+    }
+
+
 }
