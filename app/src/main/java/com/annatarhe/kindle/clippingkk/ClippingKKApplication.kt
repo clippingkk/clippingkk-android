@@ -2,6 +2,7 @@ package com.annatarhe.kindle.clippingkk
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import com.annatarhe.kindle.clippingkk.model.AppConfig
 import com.github.kittinunf.fuel.core.FuelManager
 
@@ -28,6 +29,8 @@ class ClippingKKApplication : Application() {
 
         AppConfig.uid = id.toInt()
         AppConfig.jwt = token
+
+        Log.i("auth", idWithToken.toString())
 
         FuelManager.instance.baseHeaders = mapOf("Authorization" to "Bearer ${token}")
     }
