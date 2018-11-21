@@ -39,6 +39,7 @@ dependencies {
     implementation 'jp.wasabeef:blurry:2.1.1'
     implementation 'com.github.salomonbrys.kotson:kotson:2.5.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    // implementation 'com.google.firebase:firebase-inappmessaging-display:17.0.3'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
 }
 apply plugin: 'com.google.gms.google-services'

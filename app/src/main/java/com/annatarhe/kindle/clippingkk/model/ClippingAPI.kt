@@ -33,12 +33,7 @@ class ClippingAPI {
 
                 val clippings = Gson().fromJson<List<ClippingItem>>(data.toString())
 
-                if (clippings == null) {
-                    onFail(resultObj.getString("msg"))
-                    return@responseJson
-                }
                 Log.i("clippings", clippings.toString())
-
                 onSuccess(clippings)
             }
     }

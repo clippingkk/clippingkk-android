@@ -3,8 +3,11 @@ package com.annatarhe.kindle.clippingkk
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.annatarhe.kindle.clippingkk.model.AppConfig
+import com.annatarhe.kindle.clippingkk.model.VersionAPI
 import com.annatarhe.kindle.clippingkk.ui.AuthPage
 import com.annatarhe.kindle.clippingkk.ui.HomeTabFragment
 import com.annatarhe.kindle.clippingkk.ui.ProfileFragment
@@ -52,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         this.updateContent()
 
         checkUser()
+        checkVersion()
+
     }
 
     private fun checkUser() {
@@ -60,6 +65,22 @@ class MainActivity : AppCompatActivity() {
         }
         val intent = Intent(this, AuthPage::class.java)
         startActivity(intent)
+    }
+
+    private fun checkVersion() {
+        val versionName = packageManager.getPackageInfo(packageName, 0).versionName
+        Log.i("version", versionName)
+
+        VersionAPI().GetLastVersion({ versionInfo ->
+            if (versionInfo == null) {
+                return@GetLastVersion
+            }
+            // TODO: diff with current version
+            // TODO: show modal to download last version
+        }, { msg ->
+            Snackbar.make(container, msg, Snackbar.LENGTH_LONG).show()
+        })
+
     }
 
     private fun updateContent() {
