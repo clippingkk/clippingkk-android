@@ -15,6 +15,7 @@ import android.view.View
 import com.annatarhe.kindle.clippingkk.R
 import com.annatarhe.kindle.clippingkk.model.ClippingAPI
 import kotlinx.android.synthetic.main.activity_detail.*
+import java.util.*
 
 
 class DetailPage : AppCompatActivity() {
@@ -43,14 +44,31 @@ class DetailPage : AppCompatActivity() {
 
     private val canvasHeight = 1920
     private val canvasWidth = 1080
+    private val shareBgList = listOf(
+        R.drawable.share_bg_0,
+        R.drawable.share_bg_1,
+        R.drawable.share_bg_2,
+        R.drawable.share_bg_3,
+        R.drawable.share_bg_4
+    )
 
     private fun makePicture(): Bitmap {
-        val conf = Bitmap.Config.ARGB_4444
+        val bgOpt = BitmapFactory.Options()
+        // bgOpt.inJustDecodeBounds = true
+        bgOpt.inMutable = true
+        bgOpt.inSampleSize = 3
+        
+        // TODO: resize
+        val bg = BitmapFactory.decodeResource(
+            baseContext.resources,
+            shareBgList.get(Random().nextInt(shareBgList.size)),
+            bgOpt
+        )
 
         val content = this.clipping!!.content
 
-        val bmp = Bitmap.createBitmap(canvasWidth, canvasHeight, conf)
-        val canvas = Canvas(bmp)
+        // val bmp = Bitmap.createBitmap(canvasWidth, canvasHeight, bg.config)
+        val canvas = Canvas(bg)
         canvas.save()
 
         val tp = TextPaint()
@@ -73,7 +91,7 @@ class DetailPage : AppCompatActivity() {
 
         val v = View(detailPageLayout.context)
         v.draw(canvas)
-        return bmp
+        return bg
     }
 
     private fun drawTitle(canvas: Canvas, contentStartY: Int, contentHeight: Int) {

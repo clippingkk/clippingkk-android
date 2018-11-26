@@ -10,7 +10,7 @@ class VersionAPI {
     data class VersionInfo(
         val id: Int,
         val platform: String,
-        val version: Int,
+        val version: String,
         val info: String,
         val url: String,
         val createdAt: String
@@ -18,7 +18,7 @@ class VersionAPI {
 
 
     fun GetLastVersion(onSuccess: (VersionInfo?) -> Unit, onFail: (msg: String) -> Unit) {
-        "/api/version/Android?take=1".httpGet().responseJson { request, response, result ->
+        "/version/Android?take=1".httpGet().responseJson { request, response, result ->
             if (response.statusCode != 200) {
                 onFail(response.responseMessage)
                 return@responseJson
@@ -31,6 +31,11 @@ class VersionAPI {
             val data = resultObj.getJSONArray("data")
 
             val versionList = Gson().fromJson<List<VersionInfo>>(data.toString())
+
+            if (versionList.size == 0) {
+                onSuccess(VersionInfo(-1, "Android", "0.0.0", "nil", "", ""))
+                return@responseJson
+            }
 
             onSuccess(versionList[0])
             return@responseJson
